@@ -1,0 +1,4 @@
+Instructions:The Functions.py contains multiple auxiliary functions and maybe called in Main.The Model.py contains two models, one for regression, one for classification. Train.py contains two train functions and two test functions.
+
+
+The Main function consists of two functions: The run-experiment function and the check_coverage function. Also, I give two examples showing how to run the experiments.Remember to import arc and the dataset before running.
