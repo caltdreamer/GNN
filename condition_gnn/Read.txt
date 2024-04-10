@@ -1,0 +1,5 @@
+1.Set up the current directory to this large folder named condition_gnn by cd command
+
+2.pip install -r requirements.txt
+
+3.python Main.py with arguments
