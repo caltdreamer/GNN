@@ -172,7 +172,7 @@ if __name__ == "__main__":
     parser.add_argument('--alpha', type=float, default=0.05, help='Alpha value for confidence interval')
     parser.add_argument('--seed', type=int, default=100, help='Random Seeds')
     parser.add_argument('--device', type=str, default='cuda')
-    parser.add_argument('--num_runs', type=int, default=30, help='Numbers of runs of experiments')
+    parser.add_argument('--num_runs', type=int, default=1, help='Numbers of runs of experiments')
     parser.add_argument('--model', type=str, default='GCN', choices = ['GAT', 'GCN', 'GraphSAGE', 'SGC'])
     # Add any other arguments your script accepts
 
