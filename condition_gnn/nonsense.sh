@@ -12,10 +12,7 @@
 echo "My SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID
 echo "My SLURM_ARRAY_JOB_ID: " $SLURM_ARRAY_JOB_ID
 
-
 # Add lines here to run your computations
-
-
 job_id=$SLURM_ARRAY_JOB_ID
 
 
@@ -26,6 +23,6 @@ cd $SCRATCH/$USER/$GNN/$condition_gnn
 module load gsl
 module load gcc
 module load python/anaconda-2021.05
-python3 main.py  --model GCN --dataset Cora_ML_CF --device cpu --alpha 0.05 --num_runs 1  --seed 0 
+python3 main.py  --namefile $result_file --seed $SLURM_ARRAY_TASK_ID --dataset $1 
 \
 
