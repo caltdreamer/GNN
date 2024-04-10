@@ -18,7 +18,7 @@ job_id=$SLURM_ARRAY_JOB_ID
 
 result_file="${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}"
 echo "result file is ${result_file}"
-cd /path/to/directory/containing/main.py
+cd /path/to/condition_gnn
 
 module load gsl
 module load gcc
