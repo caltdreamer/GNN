@@ -18,7 +18,7 @@ job_id=$SLURM_ARRAY_JOB_ID
 
 result_file="${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}"
 echo "result file is ${result_file}"
-cd /path/to/condition_gnn
+cd $SCRATCH/$USER/$conformalized
 
 module load gsl
 module load gcc
