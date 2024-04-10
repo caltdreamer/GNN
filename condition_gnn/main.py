@@ -44,7 +44,7 @@ def main(args):
     for alpha in alphas:
         for dataset_name in datasets:
           dataset_results = {dataset: {'GNN': {}} for dataset in datasets}
-
+          
           for z in range(args.num_runs):
               subprocess.run(['python', 'train.py',
                                 '--model', args.model,
@@ -53,7 +53,8 @@ def main(args):
                                 '--alpha', str(alpha),
                                 '--num_runs', str(args.num_runs),
                                 '--optimal',
-                                '--data_seed', str(z + args.seed)])
+                                '--data_seed', str(z + args.seed),
+                                '--epochs', str(500)])
               """
               !python train.py --model args.model \
                   --dataset {dataset_name} \
