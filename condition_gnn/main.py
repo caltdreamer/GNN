@@ -51,10 +51,10 @@ def main(args):
                                 '--dataset', dataset_name,
                                 '--device', args.device,
                                 '--alpha', str(alpha),
-                                '--num_runs', str(args.num_runs),
+                                '--num_runs', str(1),
                                 '--optimal',
                                 '--data_seed', str(z + args.seed),
-                                '--epochs', str(500)])
+                                '--epochs', str(5000)])
               """
               !python train.py --model args.model \
                   --dataset {dataset_name} \
@@ -161,8 +161,8 @@ def main(args):
               'total_counts_cc':total_counts_for_each_category_cc,
               'Prediction_sets_CF':prediction_sets_CF,
               'Prediction_sets_cc':prediction_cc}
-
-          file_path = f'./Classification_{dataset_name}_{alpha}_{args.num_runs}.txt'
+              
+          file_path = f'./results/Classification_{dataset_name}_{alpha}_{z}.txt'
           with open(file_path, 'wb') as file:
               pickle.dump(dataset_results, file)
 
