@@ -54,7 +54,7 @@ def main(args):
                                 '--num_runs', str(1),
                                 '--optimal',
                                 '--data_seed', str(z + args.seed),
-                                '--epochs', str(5000)])
+                                '--epochs', str(args.epochs)])
               """
               !python train.py --model args.model \
                   --dataset {dataset_name} \
@@ -174,6 +174,7 @@ if __name__ == "__main__":
     parser.add_argument('--device', type=str, default='cuda')
     parser.add_argument('--num_runs', type=int, default=1, help='Numbers of runs of experiments')
     parser.add_argument('--model', type=str, default='GCN', choices = ['GAT', 'GCN', 'GraphSAGE', 'SGC'])
+    parser.add_argument('--epochs', type=int, default=500, help='epochs')
     # Add any other arguments your script accepts
 
     args = parser.parse_args()
