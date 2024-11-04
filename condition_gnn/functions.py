@@ -93,13 +93,11 @@ def run_condition(cal_features, cal_labels, test_features, test_labels, predicti
         y_test = test_labels.squeeze()
 
         def score_fn(x_1,y):
-            if(x_1.shape[1]!=1):
+          
               scores = np.ones((x_1.shape[0],1))
               for i in range(x_1.shape[0]):
                 scores[i]=test_scores_foreachclass[i,y[i]]
               return scores.squeeze()
-            else:
-                  return test_scores_foreachclass[p,y]
         def phi_n(x_2):
 
             if(len(x_2.shape)==2):
