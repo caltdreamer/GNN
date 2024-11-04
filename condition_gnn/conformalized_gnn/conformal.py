@@ -211,8 +211,8 @@ def run_conformal_classification(pred, data, n, alpha, score = 'aps',
                 cal_features = current_feature[idx]
                 test_features = current_feature[~idx]
                 test_labels = val_labels
-                
-                if calib_eval & identify==2:
+                print(identify)
+                if identify==2:
                         variables_to_save = {'cal_features': cal_features, 'cal_labels': cal_labels,'test_features':test_features,'test_labels':test_labels,'idx':idx,'num_features':data.num_features,'prediction':smx,'num_classes':smx.shape[1]}
                         serialized_file_name = 'run_condition_variables_CFGNN_2.pkl'
                         serialized_file_path = './' + serialized_file_name  # This specifies the current directory
