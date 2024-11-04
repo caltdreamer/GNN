@@ -512,7 +512,7 @@ def main(args):
             #print(pred)
             #print(torch.nn.Softmax(dim = 1)(pred).detach().cpu().numpy()[0:10])
             
-            result_this_run['gnn']['APS'] = run_conformal_classification(pred, data, n, alpha, score = 'aps', calib_eval = False)
+            result_this_run['gnn']['APS'] = run_conformal_classification(pred, data, n, alpha, score = 'aps', calib_eval = False,identify=3)
             #result_this_run['gnn']['RAPS'] = run_conformal_classification(pred, data, n, alpha, score = 'raps', calib_eval = False)
             
             #print(result_this_run['gnn']['APS'][2][0:10])
@@ -826,7 +826,7 @@ def main(args):
                 #result_this_run['conf_gnn']['eff_valid'] = run_conformal_regression(best_pred, data, n, alpha, validation_set = True)[1]
             else:
                 import pickle
-                result_this_run['conf_gnn']['APS'] = run_conformal_classification(best_pred, data, n, alpha, score = 'aps', calib_eval = args.conftr_calib_holdout, calib_fraction = args.calib_fraction)
+                result_this_run['conf_gnn']['APS'] = run_conformal_classification(best_pred, data, n, alpha, score = 'aps', calib_eval = args.conftr_calib_holdout, calib_fraction = args.calib_fraction,identify =2)
 
         if args.optimal_examine:
             optimal_examine_res['confgnn_pred'] = best_pred
