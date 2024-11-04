@@ -109,7 +109,7 @@ def run_condition(cal_features, cal_labels, test_features, test_labels, predicti
         def score_inv_fn(s,x_3):
               return np.take_along_axis(caliandtest_srt[p].reshape(1,-1) <= s,caliandtest_pi[p].reshape(1,-1).argsort(axis=1),axis=1)
         infinite_params = {}
-        cond_conf = CondConf(score_fn, phi_n, infinite_params)
+        cond_conf = CondConf(score_fn=score_fn,Phi_fn=phi_n,quantile_fn=None)
         cond_conf.setup_problem(x_calib, y_calib)
         prediction_sets_test=[]
         p=n_calib
