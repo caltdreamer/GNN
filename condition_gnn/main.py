@@ -77,7 +77,7 @@ def main(args):
               with open(file_path, 'rb') as file:
                 data_prediction = pickle.load(file)
 
-              file_path = './run_condition_variables_GNN.pkl'
+              file_path = './run_condition_variables_CFGNN_2.pkl'
               with open(file_path, 'rb') as file:
                   variables_retrieved = pickle.load(file)
 
