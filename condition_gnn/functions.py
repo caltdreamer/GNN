@@ -157,13 +157,13 @@ def run_condition_split(cal_features, cal_labels, test_features, test_labels, pr
           
               scores = np.ones((x_1.shape[0],1))
               for i in range(x_1.shape[0]):
-                scores[i]=test_scores_foreachclass[i,y[i]]
+                  scores[i]=test_scores_foreachclass[i,y[i]]
               return scores.squeeze()
         def phi_n(x_2):
              if len(x_2.shape) == 2:
-             return np.ones((x_2.shape[0],1))
+                 return np.ones((x_2.shape[0],1))
              else:
-             return np.ones((1,))   
+                 return np.ones((1,))   
 
         def score_inv_fn(s,x_3):
               return np.take_along_axis(caliandtest_srt[p].reshape(1,-1) <= s,caliandtest_pi[p].reshape(1,-1).argsort(axis=1),axis=1)
