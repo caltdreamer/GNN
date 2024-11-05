@@ -104,6 +104,8 @@ def run_condition(cal_features, cal_labels, test_features, test_labels, predicti
                 return np.hstack((x_2,one_column))
             else:
                 return np.append(x_2,1)
+        def phi_n(x_2):
+            return x_2     
 
         def score_inv_fn(s,x_3):
               return np.take_along_axis(caliandtest_srt[p].reshape(1,-1) <= s,caliandtest_pi[p].reshape(1,-1).argsort(axis=1),axis=1)
