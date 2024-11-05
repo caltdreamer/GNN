@@ -184,7 +184,7 @@ def run_conformal_classification(pred, data, n, alpha, score = 'aps',
         val_labels_all = []
         idx_all = []
     #store each idx for every k and store the single smx and labels do the inference after. rememver only store the information of idx if we see identify 2 or 3.
-    for k in range(1):
+    for k in range(100):
         idx = np.array([1] * n_base + [0] * (smx.shape[0]-n_base)) > 0
         np.random.seed(k)
         np.random.shuffle(idx)
@@ -207,29 +207,26 @@ def run_conformal_classification(pred, data, n, alpha, score = 'aps',
             prediction_sets, cov, eff = tps(cal_smx, val_smx, cal_labels, val_labels, n, alpha)  
         elif score == 'aps':
                 prediction_sets, cov, eff = aps(cal_smx, val_smx, cal_labels, val_labels, n, alpha)
-                import pickle
-                cal_features = current_feature[idx]
-                test_features = current_feature[~idx]
-                test_labels = val_labels
+                #import pickle
+                #cal_features = current_feature[idx]
+                #test_features = current_feature[~idx]
+                #test_labels = val_labels
                 #print(identify)
-                if identify==2:
-                        print(identify)
-                        print(cal_smx.shape)
-                        print(val_smx.shape)
-                        variables_to_save = {'cal_features': cal_features, 'cal_labels': cal_labels,'test_features':test_features,'test_labels':test_labels,'idx':idx,'num_features':data.num_features,'prediction':smx,'num_classes':smx.shape[1]}
-                        serialized_file_name = 'run_condition_variables_CFGNN_2.pkl'
-                        serialized_file_path = './' + serialized_file_name  # This specifies the current directory
+                #if identify==2:
+                        #variables_to_save = {'cal_features': cal_features, 'cal_labels': cal_labels,'test_features':test_features,'test_labels':test_labels,'idx':idx,'num_features':data.num_features,'prediction':smx,'num_classes':smx.shape[1]}
+                       # serialized_file_name = 'run_condition_variables_CFGNN_2.pkl'
+                       # serialized_file_path = './' + serialized_file_name  # This specifies the current directory
 
-                        with open(serialized_file_path, 'wb') as file:
-                            pickle.dump(variables_to_save, file)
+                       # with open(serialized_file_path, 'wb') as file:
+                            #pickle.dump(variables_to_save, file)
                         
-                elif identify ==3:
-                        variables_to_save = {'cal_features': cal_features, 'cal_labels': cal_labels,'test_features':test_features,'test_labels':test_labels,'idx':idx,'num_features':data.num_features,'prediction':smx,'num_classes':smx.shape[1]}
-                        serialized_file_name = 'run_condition_variables_GNN.pkl'
-                        serialized_file_path = './' + serialized_file_name  # This specifies the current directory
+               # elif identify ==3:
+                       # variables_to_save = {'cal_features': cal_features, 'cal_labels': cal_labels,'test_features':test_features,'test_labels':test_labels,'idx':idx,'num_features':data.num_features,'prediction':smx,'num_classes':smx.shape[1]}
+                       # serialized_file_name = 'run_condition_variables_GNN.pkl'
+                       # serialized_file_path = './' + serialized_file_name  # This specifies the current directory
 
-                        with open(serialized_file_path, 'wb') as file:
-                            pickle.dump(variables_to_save, file)
+                       # with open(serialized_file_path, 'wb') as file:
+                        #    pickle.dump(variables_to_save, file)
 
                 
             
@@ -243,7 +240,18 @@ def run_conformal_classification(pred, data, n, alpha, score = 'aps',
         if return_prediction_sets:
             pred_set_all.append(prediction_sets)
             val_labels_all.append(val_labels)
-    
+    if identify==2:
+           print('identify 2')
+           variables_to_save = {'softmax': smx, 'index_100':idx_all,'labels':labels}
+           serialized_file_name = 'run_condition_variables_identify_2.pkl'
+           serialized_file_path = './' + serialized_file_name
+           with open(serialized_file_path, 'wb') as file:
+                pickle.dump(variables_to_save, file)
+           variables_to_save = {'prediction_set':pred_set_all,'labels':labels,'index_100':idx_all,'softmax': smx}
+           serialized_file_name = 'cfgnn_results_identify_2.pkl'
+           serialized_file_path = './' + serialized_file_name
+           with open(serialized_file_path, 'wb') as file:
+                pickle.dump(variables_to_save, file)           
     if return_prediction_sets:
         return cov_all, eff_all, prediction_sets, val_labels,val_feature
     else:
