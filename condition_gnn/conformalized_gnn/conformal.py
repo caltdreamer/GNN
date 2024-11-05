@@ -183,7 +183,7 @@ def run_conformal_classification(pred, data, n, alpha, score = 'aps',
         pred_set_all = []
         val_labels_all = []
         idx_all = []
-        
+    #store each idx for every k and store the single smx and labels do the inference after. rememver only store the information of idx if we see identify 2 or 3.
     for k in range(1):
         idx = np.array([1] * n_base + [0] * (smx.shape[0]-n_base)) > 0
         np.random.seed(k)
