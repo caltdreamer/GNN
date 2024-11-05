@@ -120,7 +120,64 @@ def run_condition(cal_features, cal_labels, test_features, test_labels, predicti
             p = p+1
 
         return np.vstack(prediction_sets_test)
+def run_condition_split(cal_features, cal_labels, test_features, test_labels, prediction_cal, prediction_test, data_num_features, data_num_classes, alpha):
+        emb3_Cali = prediction_cal
+        cal_smx = emb3_Cali
+        cal_pi = cal_smx.argsort(1)[:, ::-1]
+        cal_srt = np.take_along_axis(cal_smx,cal_pi,axis=1).cumsum(axis=1)
 
+        test_smx = prediction_test
+        test_pi = test_smx.argsort(1)[:, ::-1]
+        test_srt = np.take_along_axis(test_smx,test_pi,axis=1).cumsum(axis=1)
+        num_features = data_num_features
+        n_calib = len(prediction_cal)
+        n_test = len(prediction_test)
+
+        num_classes = data_num_classes
+        matrix_1 = np.zeros((n_calib+n_test, num_classes),dtype=int)
+
+        for i in range(data_num_classes):
+            matrix_1[:, i] = i
+
+        caliandtest_srt = np.vstack((cal_srt, test_srt))
+        caliandtest_pi = np.vstack((cal_pi,test_pi))
+        test_scores_foreachclass=np.zeros((n_calib+n_test,num_classes))
+
+        for i in range(num_classes):
+            test_scores = (np.take_along_axis(caliandtest_srt , caliandtest_pi.argsort(axis=1), axis=1)[
+            range(n_calib+n_test), matrix_1[:,i]])
+            test_scores_foreachclass[:,i]=test_scores
+        x_caliandtest = np.vstack((cal_smx,test_smx))
+        x_calib = cal_smx
+        y_calib = cal_labels.squeeze()
+        x_test = test_smx
+        y_test = test_labels.squeeze()
+
+        def score_fn(x_1,y):
+          
+              scores = np.ones((x_1.shape[0],1))
+              for i in range(x_1.shape[0]):
+                scores[i]=test_scores_foreachclass[i,y[i]]
+              return scores.squeeze()
+        def phi_n(x_2):
+             if len(x_2.shape) == 2:
+             return np.ones((x_2.shape[0],1))
+             else:
+             return np.ones((1,))   
+
+        def score_inv_fn(s,x_3):
+              return np.take_along_axis(caliandtest_srt[p].reshape(1,-1) <= s,caliandtest_pi[p].reshape(1,-1).argsort(axis=1),axis=1)
+        infinite_params = {}
+        cond_conf = CondConf(score_fn=score_fn,Phi_fn=phi_n,quantile_fn=None)
+        cond_conf.setup_problem(x_calib, y_calib)
+        prediction_sets_test=[]
+        p=n_calib
+        for x_t in tqdm(x_test):
+            res = cond_conf.predict(1-alpha, x_t, score_inv_fn)
+            prediction_sets_test.append(res)
+            p = p+1
+
+        return np.vstack(prediction_sets_test)
 def wsc(X, y, S, delta=0.1, M=1000, random_state=2020, verbose=False):
     rng = np.random.default_rng(random_state)
 
