@@ -151,10 +151,10 @@ def threshold(cal_smx, val_smx, cal_labels, val_labels, n, alpha):
     cov = prediction_sets[np.arange(prediction_sets.shape[0]),val_labels].mean()
     eff = np.sum(prediction_sets)/len(prediction_sets)
     return prediction_sets, cov, eff
-
+#Change the return prediction sets to be false
 def run_conformal_classification(pred, data, n, alpha, score = 'aps', 
                                  calib_eval = False, validation_set = False, 
-                                 use_additional_calib = False, return_prediction_sets = True, calib_fraction = 0.5,identify =1):
+                                 use_additional_calib = False, return_prediction_sets = False, calib_fraction = 0.5,identify =1):
     if calib_eval:
         n_base = int(n * (1-calib_fraction))
     else:
