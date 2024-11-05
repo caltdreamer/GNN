@@ -99,11 +99,12 @@ def run_condition(cal_features, cal_labels, test_features, test_labels, predicti
                 scores[i]=test_scores_foreachclass[i,y[i]]
               return scores.squeeze()
         def phi_n(x_2):
-
-            if(len(x_2.shape)==2):
-                    return x_2
+            if len(x_2.shape) == 2:
+                one_column = np.ones((x_2.shape[0],1))
+                return np.hstack((x_2,one_column))
             else:
-                  return  x_2.reshape(1,-1)
+                return np.append(x_2,1)
+
         def score_inv_fn(s,x_3):
               return np.take_along_axis(caliandtest_srt[p].reshape(1,-1) <= s,caliandtest_pi[p].reshape(1,-1).argsort(axis=1),axis=1)
         infinite_params = {}
