@@ -826,7 +826,7 @@ def main(args):
                 #result_this_run['conf_gnn']['eff_valid'] = run_conformal_regression(best_pred, data, n, alpha, validation_set = True)[1]
             else:
                 import pickle
-                result_this_run['conf_gnn']['APS'] = run_conformal_classification(best_pred, data, n, alpha, score = 'aps', calib_eval = args.conftr_calib_holdout, calib_fraction = args.calib_fraction,identify =2)
+                result_this_run['conf_gnn']['APS'] = run_conformal_classification(best_pred, data, n, alpha, score = 'aps', calib_eval = args.conftr_calib_holdout, calib_fraction = args.calib_fraction,identify =2,return_prediction_sets = True)
 
         if args.optimal_examine:
             optimal_examine_res['confgnn_pred'] = best_pred
